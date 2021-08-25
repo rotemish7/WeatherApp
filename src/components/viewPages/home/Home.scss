@@ -1,0 +1,9 @@
+.home {
+  background: rgb(58,215,233);
+  background: linear-gradient(180deg, rgba(58,215,233,0) 0%, rgba(75,216,232,1) 0%, rgba(152,219,227,1) 50%, rgba(113,140,252,1) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  padding: 20px;
+}
