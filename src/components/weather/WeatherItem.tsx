@@ -1,5 +1,34 @@
 import { ForecastType } from "../models/enums";
+import styled, { StyledComponent } from "styled-components";
 import "./WeatherItem.scss";
+
+const StyledWeatherItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+`;
+
+const DateTime: StyledComponent<"div", any, {}, never> = styled.div`
+  font-size: large;
+`;
+
+const MaxTemperature: StyledComponent<"div", any, {}, never> = styled.div`
+  color: #1b4de4;
+  font-size: 2.25rem;
+  font-weight: 700;
+`;
+
+const MinTemperature: StyledComponent<"div", any, {}, never> = styled.div`
+  color: #1b4de4;
+  font-size: 1.125rem;
+  font-weight: 400;
+`;
+
+const Icon: StyledComponent<"div", any, {}, never> = styled.div`
+  font-size: 1.125rem;
+`;
 
 function WeatherItem({ item, type }: Record<string, any>) {
   let maxTemp: number = 0;
@@ -8,6 +37,7 @@ function WeatherItem({ item, type }: Record<string, any>) {
   let date: any = "";
 
   switch (type) {
+    
     case ForecastType.Weekly: {
       date = new Date(item.Date).getDay();
       maxTemp = Math.round(item.Temperature.Maximum.Value);
@@ -23,7 +53,6 @@ function WeatherItem({ item, type }: Record<string, any>) {
       icon = item.WeatherIcon;
       break;
   }
-
 
   const days = [
     "'יום א",
@@ -63,16 +92,14 @@ function WeatherItem({ item, type }: Record<string, any>) {
   ];
 
   return (
-    <div className="weather-item">
-      <div className="weather-item__date">
+    <StyledWeatherItem>
+      <DateTime>
         {type === ForecastType.Weekly ? days[date] : hours[date]}
-      </div>
-      <div className="weather-item__max-temp">{maxTemp}°</div>
-      <div className="weather-item__min-temp">
-        {minTemp ? minTemp + "°" : ""}
-      </div>
-      <div className="weather-item__icon">{icon}</div>
-    </div>
+      </DateTime>
+      <MaxTemperature>{maxTemp}°</MaxTemperature>
+      <MinTemperature>{minTemp ? minTemp + "°" : ""}</MinTemperature>
+      <Icon>{icon}</Icon>
+    </StyledWeatherItem>
   );
 }
 

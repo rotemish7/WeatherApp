@@ -101,13 +101,13 @@ export default function Header({ onSearch }: any) {
   const handleLanguageClick = (event: React.MouseEvent<HTMLElement>) => {
     // setAnchorEl(event.currentTarget);
 
-    console.log('Language Changed:', event);
+    console.log('Language Changed:');
   };
 
   const handleThemeClick = (event: React.MouseEvent<HTMLElement>) => {
     // setAnchorEl(event.currentTarget);
 
-    console.log('Theme Changed', event);
+    console.log('Theme Changed');
   };
 
 //   const handleSearchChanged = (event: any) => {
