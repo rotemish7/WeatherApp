@@ -18,10 +18,13 @@ const Wrapper = styled.div`
   padding: 20px;
 `;
 
-function Home({weeklyData, hourlyData}: Record<string,any>) {
+function Home({ weeklyData, hourlyData, currentCondition }: Record<string, any>) {
 
   return (
     <Wrapper>
+      {currentCondition && (
+        <WeatherCast data={currentCondition} type={ForecastType.Daily} />
+      )}
       {weeklyData && (
         <WeatherCast data={weeklyData} type={ForecastType.Weekly} />
       )}

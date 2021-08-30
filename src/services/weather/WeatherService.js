@@ -17,16 +17,31 @@ async function getGeoPosition(location) {
   return StorageService.load("London");
 }
 
+async function getCurrentConditions(location) {
+  // try {
+  //   const res = await axios.get(
+  //     `${API_HOST}currentconditions/${API_VERSION}/${215755}?apikey=${API_KEY}`
+  //   );
+  //   StorageService.save("Current Condition", res.data);
+  //   return res.data;
+  // } catch (error) {
+  //   throw error;
+  // }
+  return StorageService.load('Current Condition');
+}
+
 async function getAutoComplete(location) {
-  try {
-    const res = await axios.get(
-      `${API_HOST}locations/${API_VERSION}/cities/autocomplete?apikey=${API_KEY}&q=${'london'}`
-    );
-    StorageService.save("Autocomplete", res.data);
-    return res.data;
-  } catch (error) {
-    throw error;
-  }
+  // try {
+  //   const res = await axios.get(
+  //     `${API_HOST}locations/${API_VERSION}/cities/autocomplete?apikey=${API_KEY}&q=${'london'}`
+  //   );
+  //   StorageService.save("Autocomplete", res.data);
+  //   return res.data;
+  // } catch (error) {
+  //   throw error;
+  // }
+
+  return StorageService.load('Autocomplete');
 }
 
 async function getDayilyForecast(key) {
@@ -66,4 +81,5 @@ export const WeatherService = {
   getHourlyForecast,
   getAutoComplete,
   getGeoPosition,
+  getCurrentConditions
 };

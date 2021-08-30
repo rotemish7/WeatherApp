@@ -1,4 +1,4 @@
-import { ForecastType } from "../models/enums";
+import { days, ForecastType, hours, weatherProperties } from "../models/enums";
 import styled, { StyledComponent } from "styled-components";
 import "./WeatherItem.scss";
 
@@ -31,74 +31,16 @@ const Icon: StyledComponent<"div", any, {}, never> = styled.div`
 `;
 
 function WeatherItem({ item, type }: Record<string, any>) {
-  let maxTemp: number = 0;
-  let minTemp: number | null = 0;
-  let icon: string = "";
-  let date: any = "";
-
-  switch (type) {
-    
-    case ForecastType.Weekly: {
-      date = new Date(item.Date).getDay();
-      maxTemp = Math.round(item.Temperature.Maximum.Value);
-      minTemp = Math.round(item.Temperature.Minimum.Value);
-      icon = item.Day.Icon;
-      break;
-    }
-
-    case ForecastType.Hourly:
-      date = new Date(item.DateTime).getHours();
-      maxTemp = Math.round(item.Temperature.Value);
-      minTemp = null;
-      icon = item.WeatherIcon;
-      break;
-  }
-
-  const days = [
-    "'יום א",
-    "'יום ב",
-    "'יום ג",
-    "'יום ד",
-    "'יום ה",
-    "'יום ו",
-    "יום שבת",
-  ];
-
-  const hours = [
-    "00:00",
-    "01:00",
-    "02:00",
-    "03:00",
-    "04:00",
-    "05:00",
-    "06:00",
-    "07:00",
-    "08:00",
-    "09:00",
-    "10:00",
-    "11:00",
-    "12:00",
-    "13:00",
-    "14:00",
-    "15:00",
-    "16:00",
-    "17:00",
-    "18:00",
-    "19:00",
-    "20:00",
-    "21:00",
-    "22:00",
-    "23:00",
-  ];
+  const forecast: weatherProperties = item;
 
   return (
     <StyledWeatherItem>
       <DateTime>
-        {type === ForecastType.Weekly ? days[date] : hours[date]}
+        {type === ForecastType.Weekly ? days[forecast.date] : type === ForecastType.Hourly ? hours[forecast.date] : forecast.date}
       </DateTime>
-      <MaxTemperature>{maxTemp}°</MaxTemperature>
-      <MinTemperature>{minTemp ? minTemp + "°" : ""}</MinTemperature>
-      <Icon>{icon}</Icon>
+      <MaxTemperature>{forecast.maxTemp}°</MaxTemperature>
+      <MinTemperature>{forecast.minTemp ? forecast.minTemp + "°" : ""}</MinTemperature>
+      <Icon>{forecast.weatherIcon}</Icon>
     </StyledWeatherItem>
   );
 }

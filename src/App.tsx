@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import "./App.scss";
 import Header from "./components/header/Header";
-import { ForecastType } from "./components/models/enums";
 import Home from "./components/viewPages/home/Home";
 import { defaultLocation, locationService } from "./services/location/LocationService";
 import { WeatherService } from "./services/weather/WeatherService";
 
+const StyledApp = styled.div`
+  width: inherit;
+  height: inherit;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+`;
+
 function App() {
   const [location, setLocation] = useState<{latitude: number;longitude: number;} | null>({ latitude: 0, longitude: 0 });
   const [locationKey, setLocationKey] = useState<string>("");
+  const [currentCondition, setCurrentCondition] = useState<Record<string,any> | null>(null); 
   const [weeklyForecast, setWeeklyForecast] = useState<Record<string,any> | null>(null);
   const [hourlyForecast, setHourlyForecast] = useState<Record<string,any> | null>(null);
   const [searchQuery, setSearchQuery] = useState<Record<string,any> | null>(null);
@@ -19,6 +28,7 @@ function App() {
     initFiveDaysData(locationKey);
     initHourlyData(locationKey);
     initAutocomplete(locationKey);
+    initCurrentCondition(locationKey);
   }, []);
 
   async function initLocation() {
@@ -57,20 +67,20 @@ function App() {
     setSearchQuery(search);
   }
 
-  // console.log("location:", location);
-  // console.log("Key:", locationKey);
-  //  console.log("WeeklyForecast:", weeklyForecast);
-    // console.log('search:', searchQuery);
+  async function initCurrentCondition(key:string) {
+    const forecast = await WeatherService.getCurrentConditions(key);
+    setCurrentCondition(forecast);
+  }
 
   const handleSearchChanged = (event: any) => {
     setSearchQuery(event);
   };
 
   return (
-    <div className="App">
+    <StyledApp>
       <Header onSearch={handleSearchChanged}></Header>
-      {weeklyForecast && hourlyForecast && (<Home weeklyData={weeklyForecast} hourlyData={hourlyForecast} />)}
-    </div>
+      {weeklyForecast && hourlyForecast && currentCondition && (<Home weeklyData={weeklyForecast} hourlyData={hourlyForecast} currentCondition={currentCondition} />)}
+    </StyledApp>
   );
 }
 
