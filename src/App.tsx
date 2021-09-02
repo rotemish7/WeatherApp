@@ -1,24 +1,40 @@
-import React from "react";
-import { StyledApp } from "./App.styled";
-import "./App.styled.ts";
-import Header from "./components/header/Header";
-import Home from "./components/viewPages/home/Home";
-import { useWeather } from "./custom-hooks/useWeather";
+import React from 'react';
+import { StyledApp } from './App.styled';
+import './App.styled.ts';
+import Header from './components/header/Header';
+import { CityProperties } from './components/models/enums';
+import Home from './components/viewPages/home/Home';
+import { useWeather } from './custom-hooks/useWeather';
 
 function App() {
+  const { weatherData, setWeatherData } = useWeather();
 
-  const weatherData = useWeather();
-
-  const handleSearchChanged = (event: any) => {
-    // setSearchQuery(event);
-    console.log(event.target.value);
+  const handleValueChanged = (event: React.ChangeEvent<{}>, value: CityProperties) => {
+    console.log('Value', value?.key);
+    setWeatherData(value?.key);
   };
-  console.log('Data:', weatherData);
 
+  const handleInputChange = (event: React.ChangeEvent<{}>, value: string | null) => {
+    console.log('Input-Value:', value);
+  };
+
+  // console.log('Data:', weatherData);
   return (
     <StyledApp>
-      <Header onSearch={handleSearchChanged}></Header>
-      {weatherData.weeklyForecast && weatherData.hourlyForecast && weatherData.currentCondition && (<Home weeklyData={weatherData.weeklyForecast} hourlyData={weatherData.hourlyForecast} currentCondition={weatherData.currentCondition} />)}
+      {weatherData.topCities && (
+        <Header
+          searchOptions={weatherData.topCities}
+          handleValueChanged={handleValueChanged}
+          handleInputChange={handleInputChange}
+        />
+      )}
+      {weatherData.weeklyForecast && weatherData.hourlyForecast && weatherData.currentCondition && (
+        <Home
+          weeklyData={weatherData.weeklyForecast}
+          hourlyData={weatherData.hourlyForecast}
+          currentCondition={weatherData.currentCondition}
+        />
+      )}
     </StyledApp>
   );
 }

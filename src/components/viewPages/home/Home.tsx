@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { ForecastType } from "../../models/enums";
-import WeatherCast from "../../weather/WeatherCast";
+import styled from 'styled-components';
+import { ForecastType } from '../../models/enums';
+import WeatherCast from '../../weather/weatherCast/WeatherCast';
 
 const Wrapper = styled.div`
   background: rgb(58, 215, 233);
@@ -19,18 +19,11 @@ const Wrapper = styled.div`
 `;
 
 function Home({ weeklyData, hourlyData, currentCondition }: Record<string, any>) {
-
   return (
     <Wrapper>
-      {currentCondition && (
-        <WeatherCast data={currentCondition} type={ForecastType.Daily} />
-      )}
-      {weeklyData && (
-        <WeatherCast data={weeklyData} type={ForecastType.Weekly} />
-      )}
-      {hourlyData && (
-        <WeatherCast data={hourlyData} type={ForecastType.Hourly} />
-      )}
+      {currentCondition && <WeatherCast data={currentCondition} type={ForecastType.Daily} />}
+      {weeklyData && <WeatherCast data={weeklyData} type={ForecastType.Weekly} />}
+      {hourlyData && <WeatherCast data={hourlyData} type={ForecastType.Hourly} />}
     </Wrapper>
   );
 }

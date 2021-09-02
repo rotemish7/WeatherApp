@@ -1,11 +1,7 @@
-import { TextField } from "@material-ui/core";
-import styled from "styled-components";
-import {
-  alpha,
-  makeStyles,
-  Theme,
-  createStyles,
-} from "@material-ui/core/styles";
+import { TextField } from '@material-ui/core';
+import styled from 'styled-components';
+import { alpha, makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { Autocomplete } from '@material-ui/lab';
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,81 +12,87 @@ export const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(2),
     },
     title: {
-      display: "none",
-      [theme.breakpoints.up("sm")]: {
-        display: "block",
+      display: 'none',
+      [theme.breakpoints.up('sm')]: {
+        display: 'block',
       },
     },
     search: {
-      position: "relative",
-      color: "white",
+      position: 'relative',
       borderRadius: theme.shape.borderRadius,
-      backgroundColor: "rgba(116, 174, 218, 0.36)",
+      backgroundColor: alpha(theme.palette.common.white, 0.15),
+      '&:hover': {
+        backgroundColor: alpha(theme.palette.common.white, 0.25),
+      },
       marginRight: theme.spacing(2),
       marginLeft: 0,
-      width: "300px",
-      [theme.breakpoints.up("sm")]: {
-        marginLeft: theme.spacing(3)
+      width: '100%',
+      [theme.breakpoints.up('sm')]: {
+        marginLeft: theme.spacing(3),
+        width: 'auto',
       },
     },
     searchIcon: {
       padding: theme.spacing(0, 2),
-      height: "100%",
-      position: "absolute",
-      pointerEvents: "none",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
+      height: '100%',
+      position: 'absolute',
+      pointerEvents: 'none',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     inputRoot: {
-      color: "white",
+      color: 'white',
     },
     inputInput: {
-      borderColor: "white",
+      borderColor: 'white',
       padding: theme.spacing(1, 1, 1, 0),
       // vertical padding + font size from searchIcon
-      paddingLeft: "5px",
-      transition: theme.transitions.create("width"),
-      width: "100%",
-      [theme.breakpoints.up("md")]: {
-        width: "20ch",
+      paddingLeft: '5px',
+      transition: theme.transitions.create('width'),
+      width: '100%',
+      [theme.breakpoints.up('md')]: {
+        width: '20ch',
       },
     },
     sectionDesktop: {
-      display: "none",
-      [theme.breakpoints.up("md")]: {
-        display: "flex",
+      display: 'none',
+      [theme.breakpoints.up('md')]: {
+        display: 'flex',
       },
     },
     sectionMobile: {
-      display: "flex",
-      [theme.breakpoints.up("md")]: {
-        display: "none",
+      display: 'flex',
+      [theme.breakpoints.up('md')]: {
+        display: 'none',
       },
     },
-  })
+  }),
 );
 
-export const StyledTextField = styled(TextField)`
-
-  label.focused {
-    color: green;
+export const StyledAutoComplete = styled(Autocomplete)`
+  .input {
+    color: white;
   }
+`;
+
+export const StyledTextField = styled(TextField)`
   .MuiOutlinedInput-root {
+    color: white;
+
+    button {
+      color: white;
+    }
+
     fieldset {
-      outline: none;
       border-color: transparent;
     }
+
     &:hover fieldset {
       outline: none;
-      background-color: rgb(132,188,236);
       border-color: transparent;
 
       transition: 0.15s linear;
-    }
-    &.Mui-focused fieldset {
-      outline: none;
-      background-color: rgb(132,188,236);
     }
   }
 `;

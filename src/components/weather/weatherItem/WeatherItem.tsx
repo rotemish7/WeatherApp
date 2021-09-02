@@ -1,15 +1,9 @@
-import { days, ForecastType, hours, weatherProperties } from "../models/enums";
-import {
-  StyledWeatherItem,
-  DateTime,
-  MaxTemperature,
-  MinTemperature,
-  Icon,
-} from "./WeatherItem.style";
-import "./WeatherItem.style.ts";
+import { days, ForecastType, hours, WeatherProperties } from '../../models/enums';
+import { StyledWeatherItem, DateTime, MaxTemperature, MinTemperature, Icon } from './WeatherItem.style';
+import './WeatherItem.style';
 
 function WeatherItem({ item, type }: Record<string, any>) {
-  const forecast: weatherProperties = item;
+  const forecast: WeatherProperties = item;
 
   return (
     <StyledWeatherItem>
@@ -21,9 +15,7 @@ function WeatherItem({ item, type }: Record<string, any>) {
           : forecast.date}
       </DateTime>
       <MaxTemperature>{forecast.maxTemp}°</MaxTemperature>
-      <MinTemperature>
-        {forecast.minTemp ? forecast.minTemp + "°" : ""}
-      </MinTemperature>
+      <MinTemperature>{forecast.minTemp ? forecast.minTemp + '°' : ''}</MinTemperature>
       <Icon>{forecast.weatherIcon}</Icon>
     </StyledWeatherItem>
   );
